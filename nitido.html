@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset = "UTF-8">
+  <script src="https://cdn.rawgit.com/Keyang/node-csvtojson/d41f44aa/browser/csvtojson.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+  <script>
+
+    // Enter Google spreadsheet URL here:
+    var spreadsheetURL = "<enter URL>"
+
+    $(function() { 
+      function _onLoad() {
+        function regenerate() {
+          // reset result
+          $('#result')[0].innerHTML = ''
+          var dict = {}
+
+          // generate result 
+          $('input[type="checkbox"]').each( function(ix, elt) {
+            // iterate thru the checkboxes
+            var checked = $( elt ).is(':checked')
+            var name = $( elt ).parent().find('> span').text()
+            if( checked ) {
+              var x = $( elt ).data('obj')
+              var quantity = x['CANTIDAD'] || 1
+              var category = x['CATEGORIA'] || ''
+              var order = x['ORDEN'] || Number.MAX_SAFE_INTEGER
+              var name = x['NOMBRE']
+              var key = name
+              var array = dict[key] || []
+              array.push(x)
+              dict[key] = array
+            }
+          })
+
+
+          var total = 0;
+          var totalAsterisk = false
+          //var printedCategories = {}
+          var lastcat = undefined;
+          for( var k in dict ) {
+            var array = dict[k]
+            if( array.length == 0 ) { continue; }
+
+            var obj = array[0]
+            var cat = obj['CATEGORIA']
+            var catchanged = !lastcat || cat !== lastcat
+            // if( !printedCategories[cat] ) {
+            if( catchanged ) {
+              if( cat ) { 
+                $('#result')[0].innerHTML += ('<DIV><b>' + cat + ':</b></DIV>')
+                //printedCategories[cat] = 1
+              } else {
+                $('#result')[0].innerHTML += ('<DIV>-</DIV>')
+              }
+            }
+            lastcat = cat
+            var objValue = parseInt(obj['VALOR TOTAL']) || 0
+            if( objValue == 0 ) { totalAsterisk = true; }
+            total += (array.length * objValue)
+            $('#result')[0].innerHTML += (obj['NOMBRE'] + (' (' + array.length + 'X)') + '\n')
+          }
+
+          $('#total')[0].innerHTML = ''
+          $('#total')[0].innerHTML += ('<div><b>Total: ' + total + (totalAsterisk ? '*' : '') + '</b></div>')
+
+        }
+
+        $(document).on('change', 'input', function() {
+          regenerate()
+        })
+
+
+        function loadSpreadsheet() { 
+          var xhttp = new XMLHttpRequest()
+          var url = spreadsheetURL
+          xhttp.open("GET", url, true);
+              xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              csv({
+                  output: "json"
+              })
+              .fromString(this.responseText)
+              .then(function(result){
+
+                console.log('result = ' + JSON.stringify(result, undefined, 2))
+
+                document.getElementById("devices").innerHTML = ''
+
+                var lastcat = undefined
+                for( var i = 0; i < result.length; i++ ) {
+                    var x = result[i]
+                    //x = result[k]
+                    var isactive = x['ACTIVE'] === "TRUE"
+                    if( !isactive ) { continue; }
+
+                    x['CANTIDAD'] = x['CANTIDAD'] || 1
+
+                    var cat = x['CATEGORIA']
+
+                    if( !lastcat || cat !== lastcat ) { 
+                      var catname = cat || '-'
+                      $('#devices').append($('<p><b>' + catname + '</b></p>'));
+                    }
+                    lastcat = cat
+
+
+                    for( var q = 0; q < x['CANTIDAD']; q++ ) {
+                      var $h = $('<div><input type="checkbox"><span>' + x['NOMBRE'] + '</span></div>')
+                      $h.find('input').data('obj', x)
+                      $('#devices').append($h)
+                    }
+                    
+                }
+              })
+            }
+          };
+          xhttp.send()
+        }
+
+        loadSpreadsheet()
+
+      }
+      _onLoad()
+    })
+
+
+
+
+  </script>
+
+</body> 
+
+<pre><h1>Herramienta de presupuestos</h1></pre>  
+
+<pre style="border: 1px solid #ccc;max-height: 400px; overflow: scroll;" id="devices">
+</pre>
+
+<pre id="result">
+
+</pre>
+
+<pre id="total">
+
+</pre>
+
+</html>
