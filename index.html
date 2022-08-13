@@ -4,13 +4,28 @@
   <meta charset = "UTF-8">
   <script src="https://cdn.rawgit.com/Keyang/node-csvtojson/d41f44aa/browser/csvtojson.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
 </head>
 <body>
 
   <script>
 
+    function isValidHttpUrl(string) {
+      let url;
+      
+      try {
+        url = new URL(string);
+      } catch (_) {
+        return false;  
+      }
+
+      return url.protocol === "https:";
+    }
+
+
     // Enter Google spreadsheet URL here:
-    var spreadsheetURL = "<enter URL>"
+    var spreadsheetURL = Cookies.get('SURL')
+
 
     $(function() { 
       function _onLoad() {
@@ -74,10 +89,24 @@
           regenerate()
         })
 
+        $('#enterURL button').click(function() { 
+            var SURL = $('#enterURL input').val()
+            if( !isValidHttpUrl(SURL) ) {
+                alert('Please input a valid google spreadsheet URL');
+                return
+            }
+            Cookies.set('SURL', SURL)
+            window.location.reload()  
+        })
+
 
         function loadSpreadsheet() { 
           var xhttp = new XMLHttpRequest()
           var url = spreadsheetURL
+          if( !url ) {
+            $('#enterURL').show()
+            return
+          }
           xhttp.open("GET", url, true);
               xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -146,6 +175,12 @@
 
 <pre id="total">
 
+</pre>
+
+<pre id="enterURL" style="display: none; background: #000; color: white; position: absolute; top: 50%; left: 50%; min-height: 350px;">
+Enter spreadsheet URL to cotinue: 
+<div><input style="position: relative; top: 0; right: 0" type="text" id="SURL"></div>
+<button>Enter</button>
 </pre>
 
 </html>
