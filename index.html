@@ -26,9 +26,14 @@
     // Enter Google spreadsheet URL here:
     var spreadsheetURL = Cookies.get('SURL')
 
-
     $(function() { 
       function _onLoad() {
+
+        function didSetURL() {
+          $('#url a')[0].innerHTML = spreadsheetURL
+          $('#enterURL input').val(spreadsheetURL)
+        }
+
         function regenerate() {
           // reset result
           $('#result')[0].innerHTML = ''
@@ -52,14 +57,13 @@
             }
           })
 
-
           var total = 0;
           var totalAsterisk = false
           //var printedCategories = {}
           var lastcat = undefined;
           for( var k in dict ) {
             var array = dict[k]
-            if( array.length == 0 ) { continue; }
+            if( array.length == 0 ) { continue }
 
             var obj = array[0]
             var cat = obj['CATEGORIA']
@@ -75,15 +79,21 @@
             }
             lastcat = cat
             var objValue = parseInt(obj['VALOR TOTAL']) || 0
-            if( objValue == 0 ) { totalAsterisk = true; }
+            if( objValue == 0 ) { totalAsterisk = true }
             total += (array.length * objValue)
             $('#result')[0].innerHTML += (obj['NOMBRE'] + (' (' + array.length + 'X)') + '\n')
           }
 
-          $('#total')[0].innerHTML = ''
-          $('#total')[0].innerHTML += ('<div><b>Total: ' + total + (totalAsterisk ? '*' : '') + '</b></div>')
+          $('#total')[0].innerHTML = ('<div><b>Total: ' + total + (totalAsterisk ? '*' : '') + '</b></div>')
 
         }
+
+        if( spreadsheetURL ) { didSetURL() }
+
+
+        $(document).on("click", '#url a', function() { 
+            $('#enterURL').show()
+        })
 
         $(document).on('change', 'input', function() {
           regenerate()
@@ -108,7 +118,7 @@
             return
           }
           xhttp.open("GET", url, true);
-              xhttp.onreadystatechange = function() {
+          xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
               csv({
                   output: "json"
@@ -165,22 +175,20 @@
 </body> 
 
 <pre><h1>Herramienta de presupuestos</h1></pre>  
+<pre style="border: 1px solid #ccc;max-height: 400px; overflow: scroll;" id="devices"></pre>
+<pre id="result"></pre>
+<pre id="total"></pre>
 
-<pre style="border: 1px solid #ccc;max-height: 400px; overflow: scroll;" id="devices">
-</pre>
-
-<pre id="result">
-
-</pre>
-
-<pre id="total">
-
-</pre>
-
+<!-- enter url dialog --> 
 <pre id="enterURL" style="display: none; background: #000; color: white; position: absolute; top: 50%; left: 50%; min-height: 350px;">
 Enter spreadsheet URL to cotinue: 
 <div><input style="position: relative; top: 0; right: 0" type="text" id="SURL"></div>
 <button>Enter</button>
+</pre>
+
+<!-- display the URL if avail -->
+<pre id="url" style="position: absolute; bottom: 0; left: 0; right: 0; background: #555; color: #fff;">
+  <a style="text-decoration: none; color: #fff" href="#" onclick="return false"></a>
 </pre>
 
 </html>
