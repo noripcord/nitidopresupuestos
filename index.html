@@ -31,7 +31,7 @@
 
         function didSetURL() {
           $('#url a')[0].innerHTML = spreadsheetURL
-          $('#enterURL input').val(spreadsheetURL)
+          $('#enterURL input[type="text"]').val(spreadsheetURL)
         }
 
         function regenerate() {
@@ -95,18 +95,18 @@
             $('#enterURL').show()
         })
 
-        $(document).on('change', 'input', function() {
+        $(document).on('change', 'input[type="checkbox"]', function() {
           regenerate()
         })
 
-        $('#enterURL button').click(function() { 
+        $('#enterURL form').submit(function() { 
             var SURL = $('#enterURL input').val()
             if( !isValidHttpUrl(SURL) ) {
                 alert('Please input a valid google spreadsheet URL');
-                return
+                return false
             }
             Cookies.set('SURL', SURL)
-            window.location.reload()  
+          return true
         })
 
 
@@ -182,8 +182,7 @@
 <!-- enter url dialog --> 
 <pre id="enterURL" style="display: none; background: #000; color: white; position: absolute; top: 50%; left: 50%; min-height: 350px;">
 Enter spreadsheet URL to cotinue: 
-<div><input style="position: relative; top: 0; right: 0" type="text" id="SURL"></div>
-<button>Enter</button>
+<div><form><input style="position: relative; top: 0; right: 0" type="text" id="SURL"><input type="submit" value="Enter"></form></div>
 </pre>
 
 <!-- display the URL if avail -->
