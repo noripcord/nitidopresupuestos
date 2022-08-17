@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset = "UTF-8">
-  <script src="https://cdn.rawgit.com/Keyang/node-csvtojson/d41f44aa/browser/csvtojson.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
-</head>
+<!-- saved from url=(0047)https://noripcord.github.io/nitidopresupuestos/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <script src="./noripcord.github.io_files/csvtojson.min.js"></script>
+  <script src="./noripcord.github.io_files/jquery-3.6.0.min.js"></script>
+  <script src="./noripcord.github.io_files/js.cookie.min.js"></script>
+<style></style></head>
 <body>
 
   <script>
@@ -71,7 +71,7 @@
             // if( !printedCategories[cat] ) {
             if( catchanged ) {
               if( cat ) { 
-                $('#result')[0].innerHTML += ('<DIV><b>' + cat + ':</b></DIV>')
+                $('#result')[0].innerHTML += ('<br><DIV><b><u>' + cat + ':</u></b></DIV>')
                 //printedCategories[cat] = 1
               } else {
                 $('#result')[0].innerHTML += ('<DIV>-</DIV>')
@@ -81,7 +81,7 @@
             var objValue = parseInt(obj['VALOR TOTAL']) || 0
             if( objValue == 0 ) { totalAsterisk = true }
             total += (array.length * objValue)
-            $('#result')[0].innerHTML += (obj['NOMBRE'] + (' (' + array.length + 'X)') + '\n')
+            $('#result')[0].innerHTML += (('' + array.length + 'x') + " " + obj['NOMBRE'] + '\n')
           }
 
           $('#total')[0].innerHTML = ('<div><b>Total: ' + total + (totalAsterisk ? '*' : '') + '</b></div>')
@@ -172,23 +172,22 @@
 
   </script>
 
-</body> 
+ 
 
 <pre><h1>Herramienta de presupuestos</h1></pre>  
 <!-- display the URL if avail -->
-<pre id="url" style="background: #555; color: #fff;">
-  <a style="text-decoration: none; color: #fff" href="#" onclick="return false"></a>
+<pre id="url" style="background: #555; color: #fff;">  <a style="text-decoration: none; color: #fff" href="https://noripcord.github.io/nitidopresupuestos/#" onclick="return false">https://docs.google.com/spreadsheets/d/1Svp0QXKqOrqXurohqcecxnp2uhn_ONAm5b6eEYcuSHA/export?format=csv</a>
 </pre>
 
-<pre style="border: 1px solid #ccc;max-height: 400px; overflow: scroll;" id="devices"></pre>
+<pre style="border: 1px solid #ccc;max-height: 400px; overflow: scroll;" id="devices"><p><b>CÁMARAS</b></p><div><input type="checkbox"><span>Sony a7s II + metabones</span></div><div><input type="checkbox"><span>Canon 6D</span></div><div><input type="checkbox"><span>Canon 6D</span></div><div><input type="checkbox"><span>Canon 5D Mark II</span></div><div><input type="checkbox"><span>Sony FX3 Cine Line</span></div><div><input type="checkbox"><span>Go Pro Hero 4 Silver Edition</span></div><div><input type="checkbox"><span>Go Pro Hero 4 Silver Edition</span></div><div><input type="checkbox"><span>Samsung Gear VR 360</span></div><div><input type="checkbox"><span>Drone Mavic Air2</span></div><div><input type="checkbox"><span>Go Pro Hero 4 Silver Edition</span></div><p><b>TRÍPODES</b></p><div><input type="checkbox"><span>Manfrotto 501v</span></div><div><input type="checkbox"><span>Tripode Fluido PROVISTA</span></div><div><input type="checkbox"><span>Tripode Fibra de carbono/Monopie</span></div><div><input type="checkbox"><span>Tripode Liviano</span></div><div><input type="checkbox"><span>Manfrotto 509</span></div><div><input type="checkbox"><span>Gimbal Ronin S con follow</span></div><div><input type="checkbox"><span>Cabezal  Manfotto 509HD</span></div><div><input type="checkbox"><span>Patas tripode manfrotto 545 gb</span></div><p><b>LENTES</b></p><div><input type="checkbox"><span>Canon Serie L 16-35mm f2.8</span></div><div><input type="checkbox"><span>Canon Serie L 24-70mm f2.8</span></div><div><input type="checkbox"><span>Canon 28mm f1.8</span></div><div><input type="checkbox"><span>Canon 85mm f1.8</span></div><div><input type="checkbox"><span>Sony 24-70mm f4</span></div><div><input type="checkbox"><span>Canon 50mm f1.8</span></div><div><input type="checkbox"><span>Tamrom 24-70mm f2.8</span></div><div><input type="checkbox"><span>Tamrom 70-200mm f2.8</span></div><div><input type="checkbox"><span>Nikon Analogico 50mm f1.4</span></div><div><input type="checkbox"><span>Kenloc Analogico 135mm f2,8</span></div><div><input type="checkbox"><span>Canon 50mm f1,2</span></div><div><input type="checkbox"><span>Sony GMaster 24-70mm f2,8</span></div><p><b>ACCESORIOS DE CÁMARA</b></p><div><input type="checkbox"><span>Shoulder</span></div><div><input type="checkbox"><span>Shoulder</span></div><div><input type="checkbox"><span>Follow Focus</span></div><div><input type="checkbox"><span>Slider 80cm</span></div><div><input type="checkbox"><span>Slider 80cm Pats</span></div><div><input type="checkbox"><span>Monitor 7' Liliput</span></div><div><input type="checkbox"><span>Follow Focus</span></div><div><input type="checkbox"><span>Wireless HDMI Hollyland 400 pro</span></div><div><input type="checkbox"><span>Monitor 5 Small hd</span></div><p><b>ILUMINACIÓN</b></p><div><input type="checkbox"><span>Luz de cámara</span></div><div><input type="checkbox"><span>Luz LED 500wts regulador temp</span></div><div><input type="checkbox"><span>Luz LED 300</span></div><div><input type="checkbox"><span>Luz LED 250</span></div><div><input type="checkbox"><span>Tripodes / Alargues</span></div><div><input type="checkbox"><span>Bolsas de arena</span></div><div><input type="checkbox"><span>Tripodes plateados</span></div><div><input type="checkbox"><span>Tripodes plateados</span></div><div><input type="checkbox"><span>Tripodes plateados</span></div><div><input type="checkbox"><span>Tripodes plateados</span></div><div><input type="checkbox"><span>Tripodes plateados</span></div><p><b>F - FLASHES</b></p><div><input type="checkbox"><span>Flash Youngnnuo 540v4</span></div><div><input type="checkbox"><span>Flash Youngnnuo 540v4</span></div><div><input type="checkbox"><span>Flash Youngnnuo 540v4</span></div><div><input type="checkbox"><span>Radio</span></div><div><input type="checkbox"><span>Tripodes / Paraguas / Difusor</span></div><div><input type="checkbox"><span>Tripodes / Paraguas / Difusor</span></div><div><input type="checkbox"><span>Tripodes / Paraguas / Difusor</span></div><div><input type="checkbox"><span>Estructura para sin fin con tripodes</span></div><div><input type="checkbox"><span>Rebotes</span></div><div><input type="checkbox"><span>Flashes de estudio</span></div><div><input type="checkbox"><span>Flashes de estudio</span></div><div><input type="checkbox"><span>Paraguas / Soft box</span></div><div><input type="checkbox"><span>Tripode Jirafa</span></div><div><input type="checkbox"><span>Tripode J</span></div><p><b>G - SONIDO</b></p><div><input type="checkbox"><span>Micrófono Rode</span></div><div><input type="checkbox"><span>Micrófono Rode</span></div><div><input type="checkbox"><span>Grabadora Zoom H4N</span></div><div><input type="checkbox"><span>Grabadora Zoom H6</span></div><div><input type="checkbox"><span></span></div><div><input type="checkbox"><span>Microfono Corbatero Senheisser</span></div><div><input type="checkbox"><span>Microfono Corbatero Senheisser</span></div><div><input type="checkbox"><span>Micrófono Rode</span></div><div><input type="checkbox"><span>Micrófono Rode</span></div><div><input type="checkbox"><span>Microfono Corbatero Boya</span></div><p><b>H - 360º</b></p><div><input type="checkbox"><span>Oculus Samsung Gear VR</span></div><div><input type="checkbox"><span>Rig Freedom 360</span></div><div><input type="checkbox"><span>Rig 10 camaras</span></div><p><b>I - PC</b></p><div><input type="checkbox"><span>PC Gamer 1</span></div><div><input type="checkbox"><span>PC Gamer 2</span></div><div><input type="checkbox"><span>PC Gamer 3</span></div><div><input type="checkbox"><span>Mac Pats</span></div><div><input type="checkbox"><span>Monitores</span></div><div><input type="checkbox"><span>Monitores</span></div><div><input type="checkbox"><span>Monitores</span></div><div><input type="checkbox"><span>Monitores</span></div><div><input type="checkbox"><span>Monitores</span></div><div><input type="checkbox"><span>Monitores</span></div><p><b>EQUIPO TÉCNICO</b></p><div><input type="checkbox"><span>Director</span></div><div><input type="checkbox"><span>Camarografo</span></div><div><input type="checkbox"><span>Asistente</span></div><div><input type="checkbox"><span>Mac book pro / Guille</span></div><div><input type="checkbox"><span>Mac book air M21 -13 " Model A2337</span></div><div><input type="checkbox"><span>Mac book pro / Patas</span></div><div><input type="checkbox"><span>MSI/ GF75Thin95 C / Pepo</span></div><p><b>VARIOS</b></p><div><input type="checkbox"><span>Viaticos</span></div><div><input type="checkbox"><span>Arte</span></div><div><input type="checkbox"><span>Seguros</span></div><p><b>POST PRODUCCION</b></p><div><input type="checkbox"><span>Montage</span></div><div><input type="checkbox"><span>Animación</span></div><div><input type="checkbox"><span>Edición de sonido</span></div><div><input type="checkbox"><span>Musicalización</span></div><div><input type="checkbox"><span>Colorizacíon</span></div></pre>
 <pre id="result"></pre>
-<pre id="total"></pre>
+<pre id="total"><div><b>Total: 0</b></div></pre>
 
 <!-- enter url dialog --> 
-<pre id="enterURL" style="display: none; background: #000; color: white; position: absolute; top: 50%; left: 50%; min-height: 350px;">
-Enter spreadsheet URL to cotinue: 
+<pre id="enterURL" style="display: none; background: #000; color: white; position: absolute; top: 50%; left: 50%; min-height: 350px;">Enter spreadsheet URL to cotinue: 
 <div><form><input style="position: relative; top: 0; right: 0" type="text" id="SURL"><input type="submit" value="Enter"></form></div>
 </pre>
 
 
-</html>
+
+</body></html>
